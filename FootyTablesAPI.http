@@ -1,0 +1,6 @@
+@FootyTablesAPI_HostAddress = http://localhost:5249
+
+GET {{FootyTablesAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
