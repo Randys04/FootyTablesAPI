@@ -1,5 +1,6 @@
 using FootyTablesAPI;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// DbContext para FootyTablesContext
 builder.Services.AddDbContext<FootyTablesContext>(
         options => options.UseSqlServer(connectionString));
+
+// DbContext para FootyTablesIdentityContext
+builder.Services.AddDbContext<FootyTablesIdentityContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
