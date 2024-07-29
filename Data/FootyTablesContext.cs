@@ -1,3 +1,4 @@
+using FootyTablesAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FootyTablesAPI
@@ -8,5 +9,8 @@ namespace FootyTablesAPI
         : base(options)
         {
         }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<RankingTableContent> RankingTablesContent { get; set; }
+        public DbSet<RankingTable> RankingTables { get; set; }
     }
 }
