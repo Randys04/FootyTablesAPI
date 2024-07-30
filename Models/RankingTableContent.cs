@@ -7,6 +7,7 @@ namespace FootyTablesAPI.Models
 {
     public class RankingTableContent
     {
+        public int RankingTableContentId { get; set; }
         public int TeamID { get; set; }
         public int RankingTableID { get; set; }
         public int Points { get; set; }
