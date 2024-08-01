@@ -19,6 +19,40 @@ namespace FootyTablesAPI.Controllers
             _contextFootyTables = contextFootyTables;
         }
 
+        [HttpGet("{teamId}")]
+        public ActionResult<Team> Get(int teamId, string userId)
+        {
+            try
+            {
+                var team = _contextFootyTables.Team.FirstOrDefault(x => x.UserID == userId && x.TeamID == teamId);
+                return Ok(team);
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new {
+                    error = "Error getting",
+                    message = "Error al intentar obtener el equipo"
+                });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<List<Team>> GetAll(string userId)
+        {
+            try
+            {
+                var teamsList = _contextFootyTables.Team.ToList().Where(x => x.UserID == userId);
+                return Ok(teamsList);
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new {
+                    error = "Error getting",
+                    message = "Error al intentar obtener el equipo"
+                });
+            }
+        }    
+
         [HttpPost]
         public ActionResult<Team> Create(Team team)
         {
