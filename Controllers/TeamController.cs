@@ -23,33 +23,29 @@ namespace FootyTablesAPI.Controllers
         [HttpGet("{teamId}/{userId}")]
         public ActionResult<Team> Get(int teamId, string userId)
         {
-            try
+            var team = teamService.Get(teamId, userId);
+            if(team is not null)
             {
-                return Ok();
+                return Ok(team);
             }
-            catch (System.Exception)
-            {
-                return BadRequest(new {
-                    error = "Error getting",
-                    message = "Error al intentar obtener el equipo"
-                });
-            }
+            return BadRequest(new {
+                error = "Error getting",
+                message = "Error al intentar obtener el equipo"
+            });
         }
 
         [HttpGet]
         public ActionResult<List<Team>> GetAll(string userId)
         {
-            try
+            var teamsList = teamService.GetAll(userId);
+            if(teamsList is not null)
             {
-                return Ok();
+                return Ok(teamsList);
             }
-            catch (System.Exception)
-            {
-                return BadRequest(new {
-                    error = "Error getting",
-                    message = "Error al intentar obtener el equipo"
-                });
-            }
+            return BadRequest(new {
+                error = "Error getting",
+                message = "Error al intentar obtener los equipos"
+            }); 
         }    
 
         [HttpPost]

@@ -44,12 +44,26 @@ namespace FootyTablesAPI.Services.Implementations
 
         public Team Get(int teamId, string userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _contextFootyTables.Team.FirstOrDefault(x => x.TeamID == teamId && x.UserID == userId)!;
+            }
+            catch (System.Exception)
+            {
+                return null!;
+            }
         }
 
         public List<Team> GetAll(string userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _contextFootyTables.Team.Where(x => x.UserID == userId).ToList();
+            }
+            catch (System.Exception)
+            {
+                return null!;
+            }
         }
     }
 }
