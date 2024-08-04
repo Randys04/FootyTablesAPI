@@ -61,6 +61,19 @@ namespace FootyTablesAPI.Controllers
             });
         }
 
+        [HttpDelete("{teamId}/{userId}")]
+        public ActionResult<bool> Delete(int teamId, string userId)
+        {
+            if (teamService.Delete(teamId, userId))
+            {
+                return Ok(true);
+            }
+            return BadRequest(new {
+                error = "Error creating",
+                message = "Error al eliminar el equipo"
+            });
+        }
+
         
     }
 }

@@ -32,9 +32,19 @@ namespace FootyTablesAPI.Services.Implementations
             }
         }
 
-        public bool Delete(int teamId)
+        public bool Delete(int teamId, string userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var teamDelete = Get(teamId, userId);
+                _contextFootyTables.Remove(teamDelete);
+                _contextFootyTables.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
 
         public bool Edit(Team team)

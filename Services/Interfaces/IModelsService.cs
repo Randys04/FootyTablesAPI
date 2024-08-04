@@ -12,6 +12,6 @@ namespace FootyTablesAPI.Services.Interfaces
         public List<Team> GetAll(string userId);
         public bool Add(Team team);
         public bool Edit(Team team);
-        public bool Delete(int teamId);
+        public bool Delete(int teamId, string userId);
     }
 }
