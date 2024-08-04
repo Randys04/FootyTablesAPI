@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FootyTablesAPI.Models;
+using FootyTablesAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootyTablesAPI.Controllers
@@ -12,20 +13,19 @@ namespace FootyTablesAPI.Controllers
     [ApiController]
     public class TeamController : ControllerBase
     {
-        private readonly FootyTablesContext _contextFootyTables;
+        private readonly ITeamService teamService;
 
-        public TeamController(FootyTablesContext contextFootyTables)
+        public TeamController(ITeamService _teamService)
         {
-            _contextFootyTables = contextFootyTables;
+            teamService = _teamService;
         }
 
-        [HttpGet("{teamId}")]
+        [HttpGet("{teamId}/{userId}")]
         public ActionResult<Team> Get(int teamId, string userId)
         {
             try
             {
-                var team = _contextFootyTables.Team.FirstOrDefault(x => x.UserID == userId && x.TeamID == teamId);
-                return Ok(team);
+                return Ok();
             }
             catch (System.Exception)
             {
@@ -41,8 +41,7 @@ namespace FootyTablesAPI.Controllers
         {
             try
             {
-                var teamsList = _contextFootyTables.Team.ToList().Where(x => x.UserID == userId);
-                return Ok(teamsList);
+                return Ok();
             }
             catch (System.Exception)
             {
@@ -54,22 +53,18 @@ namespace FootyTablesAPI.Controllers
         }    
 
         [HttpPost]
-        public ActionResult<Team> Create(Team team)
+        public ActionResult<Team> Add(Team team)
         {
-            try
+            if (teamService.Add(team))
             {
-                _contextFootyTables.Add(team);
-                _contextFootyTables.SaveChanges();
                 return Ok(team);
             }
-            catch (System.Exception)
-            {
-                return BadRequest(new {
-                    error = "Error creating",
-                    message = "Error al crear el equipo"
-                });
-            }
+            return BadRequest(new {
+                error = "Error creating",
+                message = "Error al crear el equipo"
+            });
         }
+
         
     }
 }
