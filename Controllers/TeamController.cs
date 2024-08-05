@@ -61,6 +61,19 @@ namespace FootyTablesAPI.Controllers
             });
         }
 
+        [HttpPut]
+        public ActionResult<Team> Edit(Team team)
+        {
+            if (teamService.Edit(team))
+            {
+                return Ok(team);
+            }
+            return BadRequest(new {
+                error = "Error editing",
+                message = "Error al editar el equipo"
+            });
+        }
+
         [HttpDelete("{teamId}/{userId}")]
         public ActionResult<bool> Delete(int teamId, string userId)
         {
@@ -69,7 +82,7 @@ namespace FootyTablesAPI.Controllers
                 return Ok(true);
             }
             return BadRequest(new {
-                error = "Error creating",
+                error = "Error deleting",
                 message = "Error al eliminar el equipo"
             });
         }

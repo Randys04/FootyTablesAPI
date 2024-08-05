@@ -49,7 +49,21 @@ namespace FootyTablesAPI.Services.Implementations
 
         public bool Edit(Team team)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var teamEdit = Get(team.TeamID, team.UserID!);
+                teamEdit.Name = team.Name;
+                teamEdit.City = team.City;
+
+                _contextFootyTables.Update(teamEdit);
+                _contextFootyTables.SaveChanges();
+                
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
 
         public Team Get(int teamId, string userId)
